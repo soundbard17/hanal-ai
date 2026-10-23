@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hanal � Thoughtful AI Assistant</title>
+  <title>Hanal — Thoughtful AI Assistant</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
@@ -234,6 +234,7 @@
       border-radius: 12px;
       max-width: 80%;
       white-space: pre-wrap;
+      word-break: break-word;
     }
 
     .message.user .bubble {
@@ -333,6 +334,21 @@
       background-color: var(--accent-hover);
     }
 
+    .cursor-blink {
+      display: inline-block;
+      width: 6px;
+      height: 15px;
+      background-color: var(--accent);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
     @media (max-width: 768px) {
       aside { display: none; }
     }
@@ -355,7 +371,7 @@
     </div>
 
     <div class="sidebar-footer">
-      Powered by Gemini Flash
+      Powered by Gemini Flash Lite
     </div>
   </aside>
 
@@ -373,15 +389,15 @@
           
           <div class="starter-cards">
             <div class="card" onclick="useStarter('Write 5 irresistible YouTube video hooks on: ')">
-              <div class="card-title">?? YouTube Hooks</div>
+              <div class="card-title">🎣 YouTube Hooks</div>
               <div class="card-desc">High-CTR curiosity-driven openers</div>
             </div>
             <div class="card" onclick="useStarter('Help me rewrite this offer with strong copywriting principles: ')">
-              <div class="card-title">?? Copy Polish</div>
+              <div class="card-title">✍️ Copy Polish</div>
               <div class="card-desc">Clear, benefit-driven messaging</div>
             </div>
             <div class="card" onclick="useStarter('Brainstorm 3 unique business angles for: ')">
-              <div class="card-title">?? Strategic Angles</div>
+              <div class="card-title">💡 Strategic Angles</div>
               <div class="card-desc">Find fresh perspectives & ideas</div>
             </div>
           </div>
@@ -394,7 +410,7 @@
         <textarea id="userInput" rows="1" placeholder="Message Hanal..." onkeydown="handleKey(event)"></textarea>
         <div class="input-actions">
           <span class="input-hints">Shift + Enter for new line</span>
-          <button class="send-btn" onclick="sendMessage()">?</button>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
         </div>
       </div>
     </div>
@@ -405,6 +421,7 @@
     const heroSection = document.getElementById('heroSection');
     const userInput = document.getElementById('userInput');
     const chatContainer = document.getElementById('chatContainer');
+    const sendBtn = document.getElementById('sendBtn');
 
     userInput.addEventListener('input', function() {
       this.style.height = 'auto';
@@ -440,8 +457,13 @@
       appendMessage('user', text);
       userInput.value = '';
       userInput.style.height = 'auto';
+      userInput.disabled = true;
+      sendBtn.disabled = true;
 
-      const aiBubble = appendMessage('assistant', 'Thinking...');
+      const aiBubble = appendMessage('assistant', '');
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor-blink';
+      aiBubble.appendChild(cursor);
 
       try {
         const response = await fetch('/api/chat', {
@@ -450,18 +472,38 @@
           body: JSON.stringify({ message: text })
         });
 
-        const data = await response.json();
-
-        if (response.ok && data.reply) {
-          aiBubble.innerText = data.reply;
-        } else {
-          aiBubble.innerText = data.error || 'Server error. Please verify Vercel settings.';
+        if (!response.ok) {
+          const errData = await response.json();
+          aiBubble.innerText = errData.error || 'Server error occurred.';
+          cursor.remove();
+          return;
         }
-      } catch (err) {
-        aiBubble.innerText = 'Network error. Please try again.';
-      }
 
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let fullResponse = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          fullResponse += chunk;
+          aiBubble.innerText = fullResponse;
+          aiBubble.appendChild(cursor);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        cursor.remove();
+
+      } catch (err) {
+        cursor.remove();
+        aiBubble.innerText = 'Network error. Please try again.';
+      } finally {
+        userInput.disabled = false;
+        sendBtn.disabled = false;
+        userInput.focus();
+      }
     }
 
     function appendMessage(sender, text) {
