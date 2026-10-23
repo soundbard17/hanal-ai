@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,7 +25,6 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // Agar Google API ne koi error bheja ho
     if (data.error) {
       return res.status(400).json({ error: `Google API Error: ${data.error.message || JSON.stringify(data.error)}` });
     }
@@ -34,7 +33,7 @@ export default async function handler(req, res) {
       const reply = data.candidates[0].content.parts[0].text;
       return res.status(200).json({ reply });
     } else {
-      return res.status(500).json({ error: `Empty response: ${JSON.stringify(data)}` });
+      return res.status(500).json({ error: `Empty response from model: ${JSON.stringify(data)}` });
     }
   } catch (err) {
     return res.status(500).json({ error: 'Internal server error while connecting to Google AI.' });
