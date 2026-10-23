@@ -1,6 +1,6 @@
 // api/chat.js
 export const config = {
-  runtime: 'edge', // Edge runtime se response bina latency ke turant stream hota hai
+  runtime: 'edge',
 };
 
 export default async function handler(req) {
@@ -22,6 +22,11 @@ export default async function handler(req) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        system_instruction: {
+          parts: [{
+            text: "You are Hanal, a thoughtful, ultra-clear, and sharp AI assistant. Follow these principles strictly: 1. Be direct, concise, and high-value. Avoid filler phrases, robotic pleasantries, and unnecessary conversational fluff. 2. Jump straight into the solution or answer. 3. Structure complex information with clear markdown bullet points, bold key insights, and compact formatting. 4. Match the user's language naturally (if Hinglish, reply in Hinglish; if English, reply in English)."
+          }]
+        },
         contents: [{ parts: [{ text: message }] }]
       })
     });
@@ -31,7 +36,6 @@ export default async function handler(req) {
       return new Response(JSON.stringify({ error: `Google API Error: ${errText}` }), { status: 400 });
     }
 
-    // Transform stream: Google ke SSE data se text nikaal kar direct browser ko bhejte rehna
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
 
@@ -47,7 +51,7 @@ export default async function handler(req) {
 
             buffer += decoder.decode(value, { stream: true });
             const lines = buffer.split('\n');
-            buffer = lines.pop(); // Adhura chunk save rakho
+            buffer = lines.pop();
 
             for (const line of lines) {
               const trimmed = line.trim();
@@ -61,7 +65,7 @@ export default async function handler(req) {
                       controller.enqueue(encoder.encode(chunk));
                     }
                   } catch (e) {
-                    // Ignore malformed partial chunks
+                    // Ignore partial chunks
                   }
                 }
               }
