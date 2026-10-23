@@ -6,8 +6,11 @@
   <title>Hanal — Thoughtful AI Assistant</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
+  <!-- Markdown Parser for Bold, Headings, Lists, Code -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <style>
     :root {
       --bg-main: #141413;
@@ -19,6 +22,7 @@
       --accent: #d97706;
       --accent-hover: #b45309;
       --user-bubble: #272522;
+      --code-bg: #11100f;
     }
 
     * {
@@ -232,19 +236,65 @@
     .bubble {
       padding: 12px 16px;
       border-radius: 12px;
-      max-width: 80%;
-      white-space: pre-wrap;
+      max-width: 82%;
       word-break: break-word;
     }
 
     .message.user .bubble {
       background-color: var(--user-bubble);
       border: 1px solid var(--border);
+      white-space: pre-wrap;
     }
 
     .message.assistant .bubble {
       background-color: transparent;
       padding-left: 0;
+      color: var(--text-main);
+    }
+
+    /* Claude-like Markdown Styling */
+    .bubble p {
+      margin-bottom: 12px;
+    }
+    .bubble p:last-child {
+      margin-bottom: 0;
+    }
+    .bubble strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .bubble ul, .bubble ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+    .bubble li {
+      margin-bottom: 6px;
+    }
+    .bubble h1, .bubble h2, .bubble h3, .bubble h4 {
+      color: #fff;
+      margin: 16px 0 8px;
+      font-weight: 600;
+    }
+    .bubble code {
+      font-family: 'JetBrains Mono', monospace;
+      background-color: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .bubble pre {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+    .bubble pre code {
+      background: none;
+      border: none;
+      padding: 0;
     }
 
     .avatar {
@@ -257,6 +307,7 @@
       font-size: 13px;
       font-weight: 700;
       flex-shrink: 0;
+      margin-top: 4px;
     }
 
     .avatar.ai {
@@ -339,7 +390,7 @@
       width: 6px;
       height: 15px;
       background-color: var(--accent);
-      margin-left: 2px;
+      margin-left: 4px;
       vertical-align: middle;
       animation: blink 0.8s infinite;
     }
@@ -489,7 +540,9 @@
 
           const chunk = decoder.decode(value, { stream: true });
           fullResponse += chunk;
-          aiBubble.innerText = fullResponse;
+          
+          // Real-time Markdown Render
+          aiBubble.innerHTML = marked.parse(fullResponse);
           aiBubble.appendChild(cursor);
           chatContainer.scrollTop = chatContainer.scrollHeight;
         }
