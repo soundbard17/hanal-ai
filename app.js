@@ -147,25 +147,49 @@ async function sendMessage() {
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
-    let fullResponse = '';
 
+    let streamDone = false;
+    let targetText = '';
+    let renderedLength = 0;
+
+    // Smooth typing loop: Queue se characters ko rhythmic speed mein print karta hai
+    const typingInterval = new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (renderedLength < targetText.length) {
+          // Dynamic step calculation for natural pacing
+          const remaining = targetText.length - renderedLength;
+          const step = remaining > 40 ? 3 : remaining > 15 ? 2 : 1;
+
+          renderedLength = Math.min(renderedLength + step, targetText.length);
+          const currentSlice = targetText.slice(0, renderedLength);
+
+          aiBubble.innerHTML = marked.parse(currentSlice);
+          aiBubble.appendChild(cursor);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        } else if (streamDone) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 16); // ~60fps smooth typewriter rendering
+    });
+
+    // Background reader stream
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
-
+      if (done) {
+        streamDone = true;
+        break;
+      }
       const chunk = decoder.decode(value, { stream: true });
-      fullResponse += chunk;
-      
-      aiBubble.innerHTML = marked.parse(fullResponse);
-      aiBubble.appendChild(cursor);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+      targetText += chunk;
     }
 
+    await typingInterval;
     cursor.remove();
 
     chatHistory.push({
       role: 'model',
-      parts: [{ text: fullResponse }]
+      parts: [{ text: targetText }]
     });
 
     saveChatToStorage();
