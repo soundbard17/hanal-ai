@@ -1,12 +1,14 @@
 :root {
   --bg-dark: #0a0b0e;
-  --glass-panel: rgba(22, 24, 30, 0.75);
-  --glass-card: rgba(30, 34, 44, 0.6);
-  /* Lines aur borders ko bold aur clear white banaya */
-  --glass-border: rgba(255, 255, 255, 0.22);
-  --glass-border-focus: rgba(255, 255, 255, 0.55);
+  --glass-panel: rgba(18, 20, 26, 0.85);
+  --glass-card: rgba(26, 30, 40, 0.7);
+  
+  /* Thick & Ultra-Clear Solid Borders */
+  --border-thick: 2px solid rgba(255, 255, 255, 0.45);
+  --border-focus: 2px solid #ffffff;
+  
   --text-main: #ffffff;
-  --text-muted: #cbd5e1;
+  --text-muted: #e2e8f0;
   --accent: #ffffff;
   --code-bg: rgba(10, 11, 14, 0.95);
 }
@@ -15,42 +17,39 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /* Crystal-clear crisp system font (koi blur nahi) */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background-color: var(--bg-dark);
   background-image: 
-    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 40%);
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.04) 0%, transparent 40%);
   color: var(--text-main);
   height: 100vh;
   display: flex;
   overflow: hidden;
-  padding: 12px;
-  gap: 12px;
+  padding: 14px;
+  gap: 14px;
 }
 
-/* Floating Rounded Sidebar */
+/* Floating Sidebar with 2px Clear Border */
 aside {
-  width: 280px;
-  min-width: 280px;
+  width: 290px;
+  min-width: 290px;
   background: var(--glass-panel);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  /* Clear solid 1.5px border */
-  border: 1.5px solid var(--glass-border);
+  border: var(--border-thick);
   border-radius: 24px;
   display: flex;
   flex-direction: column;
-  padding: 20px 16px;
+  padding: 22px 18px;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 20;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
 aside.collapsed {
@@ -68,29 +67,28 @@ aside.collapsed {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-bottom: 18px;
-  /* Strong dividing line */
-  border-bottom: 1.5px solid var(--glass-border);
+  padding-bottom: 20px;
+  border-bottom: var(--border-thick);
 }
 
 .brand-logo {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   background: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1.5px solid #ffffff;
+  border: var(--border-thick);
 }
 
 .brand-logo svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   fill: none;
   stroke: #0a0b0e;
-  stroke-width: 2.2;
+  stroke-width: 2.4;
 }
 
 .brand-titles {
@@ -99,7 +97,7 @@ aside.collapsed {
 }
 
 .brand-name {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   color: #ffffff;
 }
@@ -107,17 +105,18 @@ aside.collapsed {
 .brand-tagline {
   font-size: 13px;
   color: var(--text-muted);
+  font-weight: 500;
 }
 
-/* Clearer Bold Border Pill Button */
+/* Bold Outlined New Chat Button */
 .new-chat-btn {
-  margin-top: 16px;
+  margin-top: 18px;
   background: var(--glass-card);
-  border: 1.5px solid var(--glass-border);
+  border: var(--border-thick);
   color: #ffffff;
-  padding: 12px 18px;
+  padding: 14px 20px;
   border-radius: 9999px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -127,8 +126,8 @@ aside.collapsed {
 }
 
 .new-chat-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--glass-border-focus);
+  background: rgba(255, 255, 255, 0.15);
+  border: var(--border-focus);
 }
 
 .chat-history {
@@ -141,13 +140,13 @@ aside.collapsed {
 }
 
 .history-item {
-  padding: 10px 16px;
+  padding: 12px 18px;
   border-radius: 9999px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-muted);
   cursor: pointer;
   background: transparent;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -156,18 +155,19 @@ aside.collapsed {
 
 .history-item:hover {
   color: #ffffff;
-  border-color: var(--glass-border);
+  border: var(--border-thick);
 }
 
 .history-item.active {
   color: #ffffff;
   background: var(--glass-card);
-  border-color: var(--glass-border);
+  border: var(--border-thick);
 }
 
+/* Profile Section */
 .profile-section {
-  border-top: 1.5px solid var(--glass-border);
-  padding-top: 16px;
+  border-top: var(--border-thick);
+  padding-top: 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -177,20 +177,20 @@ aside.collapsed {
 .profile-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   overflow: hidden;
 }
 
 .profile-avatar {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1.5px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.2);
+  border: var(--border-thick);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: #ffffff;
   flex-shrink: 0;
@@ -203,7 +203,7 @@ aside.collapsed {
 }
 
 .profile-email {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #ffffff;
   white-space: nowrap;
@@ -213,28 +213,28 @@ aside.collapsed {
 }
 
 .profile-status {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
 .login-btn {
   background: transparent;
-  border: 1.5px solid var(--glass-border);
+  border: var(--border-thick);
   color: #ffffff;
-  padding: 6px 14px;
+  padding: 8px 16px;
   border-radius: 9999px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .login-btn:hover {
-  border-color: var(--glass-border-focus);
-  background: rgba(255, 255, 255, 0.12);
+  border: var(--border-focus);
+  background: rgba(255, 255, 255, 0.2);
 }
 
-/* Main Container with Defined Bold Border */
+/* Main Container */
 main {
   flex: 1;
   display: flex;
@@ -242,12 +242,12 @@ main {
   background: var(--glass-panel);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1.5px solid var(--glass-border);
+  border: var(--border-thick);
   border-radius: 24px;
   position: relative;
   height: 100%;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
 header {
@@ -255,7 +255,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1.5px solid var(--glass-border);
+  border-bottom: var(--border-thick);
 }
 
 .header-left {
@@ -266,10 +266,10 @@ header {
 
 .sidebar-toggle-btn {
   background: var(--glass-card);
-  border: 1.5px solid var(--glass-border);
+  border: var(--border-thick);
   color: #ffffff;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -279,23 +279,23 @@ header {
 }
 
 .sidebar-toggle-btn:hover {
-  border-color: var(--glass-border-focus);
-  background: rgba(255, 255, 255, 0.15);
+  border: var(--border-focus);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .header-title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: #ffffff;
 }
 
 .status-badge {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   background: var(--glass-card);
-  padding: 6px 14px;
+  padding: 6px 16px;
   border-radius: 9999px;
-  border: 1.5px solid var(--glass-border);
+  border: var(--border-thick);
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -303,8 +303,8 @@ header {
 }
 
 .status-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   background-color: #10b981;
   border-radius: 50%;
   box-shadow: 0 0 10px #10b981;
@@ -321,10 +321,10 @@ header {
 
 .chat-wrapper {
   width: 100%;
-  max-width: 780px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 26px;
 }
 
 .hero {
@@ -336,19 +336,19 @@ header {
 }
 
 .hero h1 {
-  font-size: 38px;
-  font-weight: 700;
+  font-size: 42px;
+  font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.5px;
 }
 
-/* Chat Messages - Font Size Bada & Crisp */
+/* Chat Messages - Font Size Bada (17px-18px) */
 .message {
   display: flex;
-  gap: 14px;
+  gap: 16px;
   width: 100%;
   line-height: 1.7;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .message.user {
@@ -356,18 +356,19 @@ header {
 }
 
 .bubble {
-  padding: 16px 22px;
+  padding: 16px 24px;
   border-radius: 20px;
   max-width: 82%;
   word-break: break-word;
 }
 
 .message.user .bubble {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1.5px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.15);
+  border: var(--border-thick);
   color: #ffffff;
   border-bottom-right-radius: 6px;
   white-space: pre-wrap;
+  font-weight: 500;
 }
 
 .message.assistant .bubble {
@@ -377,7 +378,7 @@ header {
 }
 
 .bubble p {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .bubble p:last-child {
   margin-bottom: 0;
@@ -387,29 +388,29 @@ header {
   font-weight: 700;
 }
 .bubble ul, .bubble ol {
-  margin-left: 24px;
-  margin-bottom: 12px;
+  margin-left: 26px;
+  margin-bottom: 14px;
 }
 .bubble li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .bubble h1, .bubble h2, .bubble h3 {
   color: #ffffff;
-  margin: 18px 0 10px;
-  font-weight: 700;
+  margin: 20px 0 10px;
+  font-weight: 800;
 }
 .bubble code {
   font-family: 'JetBrains Mono', monospace;
   background: var(--code-bg);
-  border: 1.5px solid var(--glass-border);
-  padding: 3px 8px;
+  border: var(--border-thick);
+  padding: 4px 8px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 15px;
   color: #ffffff;
 }
 .bubble pre {
   background: var(--code-bg);
-  border: 1.5px solid var(--glass-border);
+  border: var(--border-thick);
   border-radius: 14px;
   padding: 16px 20px;
   overflow-x: auto;
@@ -422,15 +423,15 @@ header {
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   margin-top: 4px;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border: var(--border-thick);
 }
 
 .avatar.ai {
@@ -438,14 +439,14 @@ header {
 }
 
 .avatar.ai svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   fill: none;
   stroke: #0a0b0e;
-  stroke-width: 2.2;
+  stroke-width: 2.4;
 }
 
-/* Input Dock & Defined Bold Borders */
+/* Input Dock with 2px Solid Bold Border */
 .input-dock {
   padding: 18px 24px 26px;
   display: flex;
@@ -454,22 +455,22 @@ header {
 
 .input-box-wrapper {
   width: 100%;
-  max-width: 780px;
+  max-width: 800px;
   background: var(--glass-card);
-  border: 1.5px solid var(--glass-border);
+  border: var(--border-thick);
   backdrop-filter: blur(20px);
   border-radius: 9999px;
-  padding: 10px 12px 10px 24px;
+  padding: 10px 14px 10px 24px;
   display: flex;
   align-items: center;
   gap: 14px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
   transition: all 0.2s ease;
 }
 
 .input-box-wrapper:focus-within {
-  border-color: var(--glass-border-focus);
-  background: rgba(36, 40, 52, 0.7);
+  border: var(--border-focus);
+  background: rgba(36, 40, 52, 0.85);
 }
 
 textarea {
@@ -477,11 +478,11 @@ textarea {
   border: none;
   outline: none;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 17px;
   resize: none;
   flex: 1;
   max-height: 140px;
-  min-height: 24px;
+  min-height: 26px;
   line-height: 1.5;
 }
 
@@ -492,16 +493,16 @@ textarea::placeholder {
 .send-btn {
   background: #ffffff;
   color: #0a0b0e;
-  border: 1.5px solid #ffffff;
-  width: 38px;
-  height: 38px;
+  border: var(--border-thick);
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
   flex-shrink: 0;
   transition: all 0.2s ease;
 }
@@ -509,12 +510,13 @@ textarea::placeholder {
 .send-btn:hover {
   transform: scale(1.05);
   background: #f1f5f9;
+  border-color: #ffffff;
 }
 
 .cursor-blink {
   display: inline-block;
-  width: 6px;
-  height: 16px;
+  width: 7px;
+  height: 18px;
   background-color: #ffffff;
   margin-left: 4px;
   vertical-align: middle;
