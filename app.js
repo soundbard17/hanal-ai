@@ -126,10 +126,12 @@ async function sendMessage() {
   userInput.disabled = true;
   sendBtn.disabled = true;
 
+  // 1. Show 3-Wave-Dots Loader instead of blinking bar
   const aiBubble = appendMessage('assistant', '');
-  const cursor = document.createElement('span');
-  cursor.className = 'cursor-blink';
-  aiBubble.appendChild(cursor);
+  const waveLoader = document.createElement('div');
+  waveLoader.className = 'typing-wave-loader';
+  waveLoader.innerHTML = '<span></span><span></span><span></span>';
+  aiBubble.appendChild(waveLoader);
 
   try {
     const response = await fetch('/api/chat', {
@@ -139,9 +141,9 @@ async function sendMessage() {
     });
 
     if (!response.ok) {
+      waveLoader.remove();
       const errData = await response.json();
       aiBubble.innerText = errData.error || 'Server error occurred.';
-      cursor.remove();
       return;
     }
 
@@ -151,12 +153,20 @@ async function sendMessage() {
     let streamDone = false;
     let targetText = '';
     let renderedLength = 0;
+    let loaderRemoved = false;
 
-    // Smooth typing loop: Queue se characters ko rhythmic speed mein print karta hai
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor-blink';
+
+    // Smooth typing loop
     const typingInterval = new Promise((resolve) => {
       const interval = setInterval(() => {
+        if (targetText.length > 0 && !loaderRemoved) {
+          waveLoader.remove();
+          loaderRemoved = true;
+        }
+
         if (renderedLength < targetText.length) {
-          // Dynamic step calculation for natural pacing
           const remaining = targetText.length - renderedLength;
           const step = remaining > 40 ? 3 : remaining > 15 ? 2 : 1;
 
@@ -170,10 +180,9 @@ async function sendMessage() {
           clearInterval(interval);
           resolve();
         }
-      }, 16); // ~60fps smooth typewriter rendering
+      }, 16);
     });
 
-    // Background reader stream
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
@@ -195,7 +204,7 @@ async function sendMessage() {
     saveChatToStorage();
 
   } catch (err) {
-    cursor.remove();
+    waveLoader.remove();
     aiBubble.innerText = 'Network error. Please try again.';
   } finally {
     userInput.disabled = false;
