@@ -3,33 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hanal — Thoughtful AI Assistant</title>
+  <title>Hanal — Mera Buddy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
-  <!-- Markdown Parser for Bold, Headings, Lists, Code -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
     :root {
-      --bg-main: #141413;
-      --bg-sidebar: #1b1a18;
-      --bg-card: #201f1d;
-      --border: #2d2b28;
-      --text-main: #ecebe6;
-      --text-muted: #9c9a92;
-      --accent: #d97706;
-      --accent-hover: #b45309;
-      --user-bubble: #272522;
-      --code-bg: #11100f;
+      --bg-main: #121316;
+      --bg-sidebar: #18191d;
+      --bg-card: #1f2127;
+      --border: #2c2e35;
+      --border-hover: #3e414b;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #e5e7eb;
+      --user-bubble: #262830;
+      --code-bg: #0d0e11;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
     }
 
     body {
@@ -52,28 +51,38 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding-bottom: 20px;
+      gap: 12px;
+      padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
 
     .brand-icon {
       width: 32px;
       height: 32px;
-      background: linear-gradient(135deg, #d97706, #f59e0b);
+      background: #ffffff;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      color: #141413;
-      font-size: 18px;
+      color: #121316;
+      font-size: 16px;
+    }
+
+    .brand-titles {
+      display: flex;
+      flex-direction: column;
     }
 
     .brand-name {
-      font-family: 'Newsreader', serif;
-      font-size: 22px;
-      font-weight: 500;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--text-muted);
     }
 
     .new-chat-btn {
@@ -83,7 +92,8 @@
       color: var(--text-main);
       padding: 10px 14px;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
@@ -92,6 +102,7 @@
 
     .new-chat-btn:hover {
       background-color: var(--border);
+      border-color: var(--border-hover);
     }
 
     .chat-history {
@@ -109,19 +120,13 @@
       font-size: 13px;
       color: var(--text-muted);
       cursor: pointer;
+      background-color: var(--bg-card);
+      border: 1px solid transparent;
     }
 
     .history-item.active {
-      background-color: var(--bg-card);
-      color: var(--text-main);
-    }
-
-    .sidebar-footer {
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-      font-size: 12px;
-      color: var(--text-muted);
-      text-align: center;
+      color: #ffffff;
+      border-color: var(--border);
     }
 
     main {
@@ -133,20 +138,38 @@
     }
 
     header {
-      padding: 16px 24px;
+      padding: 14px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
+      background-color: rgba(18, 19, 22, 0.7);
+      backdrop-filter: blur(8px);
     }
 
-    .model-badge {
+    .header-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .status-badge {
       font-size: 12px;
       background-color: var(--bg-card);
       padding: 4px 10px;
       border-radius: 12px;
       border: 1px solid var(--border);
-      color: var(--accent);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #22c55e;
+      border-radius: 50%;
     }
 
     .chat-container {
@@ -172,19 +195,21 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .hero h1 {
-      font-family: 'Newsreader', serif;
-      font-size: 38px;
-      font-weight: 400;
+      font-size: 32px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.5px;
     }
 
     .hero p {
       color: var(--text-muted);
-      font-size: 15px;
+      font-size: 14px;
       max-width: 440px;
+      line-height: 1.5;
     }
 
     .starter-cards {
@@ -192,7 +217,7 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
       width: 100%;
-      margin-top: 30px;
+      margin-top: 32px;
     }
 
     .card {
@@ -206,13 +231,15 @@
     }
 
     .card:hover {
-      border-color: var(--accent);
+      border-color: var(--border-hover);
+      background-color: #242730;
       transform: translateY(-2px);
     }
 
     .card-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
+      color: #ffffff;
       margin-bottom: 4px;
     }
 
@@ -226,7 +253,7 @@
       gap: 14px;
       width: 100%;
       line-height: 1.6;
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .message.user {
@@ -243,6 +270,7 @@
     .message.user .bubble {
       background-color: var(--user-bubble);
       border: 1px solid var(--border);
+      color: #ffffff;
       white-space: pre-wrap;
     }
 
@@ -252,7 +280,6 @@
       color: var(--text-main);
     }
 
-    /* Claude-like Markdown Styling */
     .bubble p {
       margin-bottom: 12px;
     }
@@ -270,8 +297,8 @@
     .bubble li {
       margin-bottom: 6px;
     }
-    .bubble h1, .bubble h2, .bubble h3, .bubble h4 {
-      color: #fff;
+    .bubble h1, .bubble h2, .bubble h3 {
+      color: #ffffff;
       margin: 16px 0 8px;
       font-weight: 600;
     }
@@ -282,6 +309,7 @@
       padding: 2px 6px;
       border-radius: 4px;
       font-size: 13px;
+      color: #e5e7eb;
     }
     .bubble pre {
       background-color: var(--code-bg);
@@ -304,15 +332,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       flex-shrink: 0;
       margin-top: 4px;
     }
 
     .avatar.ai {
-      background-color: var(--accent);
-      color: #141413;
+      background-color: #ffffff;
+      color: #121316;
     }
 
     .input-dock {
@@ -331,11 +359,11 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
 
     .input-box-wrapper:focus-within {
-      border-color: var(--accent);
+      border-color: #4b5563;
     }
 
     textarea {
@@ -343,7 +371,7 @@
       border: none;
       outline: none;
       color: var(--text-main);
-      font-size: 15px;
+      font-size: 14px;
       resize: none;
       width: 100%;
       max-height: 180px;
@@ -362,34 +390,35 @@
     }
 
     .input-hints {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
     .send-btn {
-      background-color: var(--accent);
-      color: #141413;
+      background-color: #ffffff;
+      color: #121316;
       border: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 14px;
+      font-weight: 600;
       transition: 0.15s;
     }
 
     .send-btn:hover {
-      background-color: var(--accent-hover);
+      background-color: #e5e7eb;
     }
 
     .cursor-blink {
       display: inline-block;
-      width: 6px;
-      height: 15px;
-      background-color: var(--accent);
+      width: 5px;
+      height: 14px;
+      background-color: #ffffff;
       margin-left: 4px;
       vertical-align: middle;
       animation: blink 0.8s infinite;
@@ -410,7 +439,10 @@
   <aside>
     <div class="brand">
       <div class="brand-icon">H</div>
-      <div class="brand-name">Hanal</div>
+      <div class="brand-titles">
+        <span class="brand-name">Hanal</span>
+        <span class="brand-tagline">Mera Buddy</span>
+      </div>
     </div>
     
     <button class="new-chat-btn" onclick="startNewChat()">
@@ -420,36 +452,35 @@
     <div class="chat-history">
       <div class="history-item active">Current Conversation</div>
     </div>
-
-    <div class="sidebar-footer">
-      Powered by Gemini Flash Lite
-    </div>
   </aside>
 
   <main>
     <header>
-      <span style="font-size: 14px; font-weight: 600;">Hanal AI</span>
-      <span class="model-badge">Online</span>
+      <span class="header-title">Hanal — Mera Buddy</span>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Ready
+      </div>
     </header>
 
     <div class="chat-container" id="chatContainer">
       <div class="chat-wrapper" id="chatWrapper">
         <div class="hero" id="heroSection">
           <h1>How can Hanal help you today?</h1>
-          <p>A calm, thoughtful space for copywriting, idea generation, and critical thinking.</p>
+          <p>Your thoughtful buddy for writing, strategy, ideas, and execution.</p>
           
           <div class="starter-cards">
-            <div class="card" onclick="useStarter('Write 5 irresistible YouTube video hooks on: ')">
-              <div class="card-title">🎣 YouTube Hooks</div>
+            <div class="card" onclick="useStarter('Write 5 irresistible video hooks on: ')">
+              <div class="card-title">🎣 Video Hooks</div>
               <div class="card-desc">High-CTR curiosity-driven openers</div>
             </div>
-            <div class="card" onclick="useStarter('Help me rewrite this offer with strong copywriting principles: ')">
+            <div class="card" onclick="useStarter('Help me rewrite this message clearly and concisely: ')">
               <div class="card-title">✍️ Copy Polish</div>
               <div class="card-desc">Clear, benefit-driven messaging</div>
             </div>
-            <div class="card" onclick="useStarter('Brainstorm 3 unique business angles for: ')">
-              <div class="card-title">💡 Strategic Angles</div>
-              <div class="card-desc">Find fresh perspectives & ideas</div>
+            <div class="card" onclick="useStarter('Brainstorm 3 strategic ideas for: ')">
+              <div class="card-title">💡 Strategic Ideas</div>
+              <div class="card-desc">Find fresh angles & perspectives</div>
             </div>
           </div>
         </div>
@@ -458,7 +489,7 @@
 
     <div class="input-dock">
       <div class="input-box-wrapper">
-        <textarea id="userInput" rows="1" placeholder="Message Hanal..." onkeydown="handleKey(event)"></textarea>
+        <textarea id="userInput" rows="1" placeholder="Ask your buddy..." onkeydown="handleKey(event)"></textarea>
         <div class="input-actions">
           <span class="input-hints">Shift + Enter for new line</span>
           <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
@@ -473,6 +504,9 @@
     const userInput = document.getElementById('userInput');
     const chatContainer = document.getElementById('chatContainer');
     const sendBtn = document.getElementById('sendBtn');
+
+    // Chat Memory Array (Google Gemini Multiturn format)
+    let chatHistory = [];
 
     userInput.addEventListener('input', function() {
       this.style.height = 'auto';
@@ -494,9 +528,12 @@
     }
 
     function startNewChat() {
+      chatHistory = []; // Reset memory
       chatWrapper.innerHTML = '';
       chatWrapper.appendChild(heroSection);
       heroSection.style.display = 'flex';
+      userInput.value = '';
+      userInput.focus();
     }
 
     async function sendMessage() {
@@ -505,12 +542,19 @@
 
       if (heroSection) heroSection.style.display = 'none';
 
+      // 1. Add User Message
       appendMessage('user', text);
+      chatHistory.push({
+        role: 'user',
+        parts: [{ text: text }]
+      });
+
       userInput.value = '';
       userInput.style.height = 'auto';
       userInput.disabled = true;
       sendBtn.disabled = true;
 
+      // 2. Prepare AI Bubble with Cursor
       const aiBubble = appendMessage('assistant', '');
       const cursor = document.createElement('span');
       cursor.className = 'cursor-blink';
@@ -520,7 +564,7 @@
         const response = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text })
+          body: JSON.stringify({ history: chatHistory })
         });
 
         if (!response.ok) {
@@ -541,13 +585,18 @@
           const chunk = decoder.decode(value, { stream: true });
           fullResponse += chunk;
           
-          // Real-time Markdown Render
           aiBubble.innerHTML = marked.parse(fullResponse);
           aiBubble.appendChild(cursor);
           chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
         cursor.remove();
+
+        // 3. Save AI response into memory
+        chatHistory.push({
+          role: 'model',
+          parts: [{ text: fullResponse }]
+        });
 
       } catch (err) {
         cursor.remove();
