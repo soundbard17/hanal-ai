@@ -19,7 +19,7 @@
       --border-hover: #3e414b;
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
-      --accent: #e5e7eb;
+      --accent: #ffffff;
       --user-bubble: #262830;
       --code-bg: #0d0e11;
     }
@@ -39,13 +39,26 @@
       overflow: hidden;
     }
 
+    /* Sidebar Transitions & Collapse */
     aside {
       width: 260px;
+      min-width: 260px;
       background-color: var(--bg-sidebar);
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       padding: 16px;
+      transition: width 0.25s ease, min-width 0.25s ease, padding 0.25s ease, transform 0.25s ease;
+      position: relative;
+      z-index: 20;
+    }
+
+    aside.collapsed {
+      width: 0;
+      min-width: 0;
+      padding: 0;
+      overflow: hidden;
+      border-right: none;
     }
 
     .brand {
@@ -56,7 +69,8 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .brand-icon {
+    /* Minimal Geometric Spark Logo */
+    .brand-logo {
       width: 32px;
       height: 32px;
       background: #ffffff;
@@ -64,29 +78,36 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
       color: #121316;
-      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .brand-logo svg {
+      width: 18px;
+      height: 18px;
+      fill: #121316;
     }
 
     .brand-titles {
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     .brand-name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: #ffffff;
+      letter-spacing: -0.2px;
     }
 
     .brand-tagline {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
     .new-chat-btn {
-      margin-top: 16px;
+      margin-top: 14px;
       background-color: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-main);
@@ -96,6 +117,7 @@
       font-weight: 500;
       cursor: pointer;
       display: flex;
+      align-items: center;
       justify-content: space-between;
       transition: 0.15s;
     }
@@ -108,7 +130,7 @@
     .chat-history {
       flex: 1;
       overflow-y: auto;
-      margin-top: 20px;
+      margin-top: 16px;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -122,6 +144,9 @@
       cursor: pointer;
       background-color: var(--bg-card);
       border: 1px solid transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .history-item.active {
@@ -129,22 +154,117 @@
       border-color: var(--border);
     }
 
+    /* Profile / Account Section */
+    .profile-section {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    .profile-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #2c2e35;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .profile-details {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .profile-email {
+      font-size: 12px;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 135px;
+    }
+
+    .profile-status {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .login-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .login-btn:hover {
+      color: #ffffff;
+      border-color: var(--border-hover);
+    }
+
+    /* Main Area */
     main {
       flex: 1;
       display: flex;
       flex-direction: column;
       position: relative;
       height: 100vh;
+      overflow: hidden;
     }
 
     header {
-      padding: 14px 24px;
+      padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
       background-color: rgba(18, 19, 22, 0.7);
       backdrop-filter: blur(8px);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sidebar-toggle-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .sidebar-toggle-btn:hover {
+      color: #ffffff;
+      border-color: var(--border-hover);
+      background-color: var(--bg-card);
     }
 
     .header-title {
@@ -189,13 +309,13 @@
       gap: 24px;
     }
 
+    /* Minimal Hero */
     .hero {
       text-align: center;
-      margin-top: 70px;
+      margin-top: 140px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
     }
 
     .hero h1 {
@@ -203,49 +323,6 @@
       font-weight: 600;
       color: #ffffff;
       letter-spacing: -0.5px;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 14px;
-      max-width: 440px;
-      line-height: 1.5;
-    }
-
-    .starter-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      width: 100%;
-      margin-top: 32px;
-    }
-
-    .card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 14px 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: left;
-      transition: 0.15s;
-    }
-
-    .card:hover {
-      border-color: var(--border-hover);
-      background-color: #242730;
-      transform: translateY(-2px);
-    }
-
-    .card-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    .card-desc {
-      font-size: 12px;
-      color: var(--text-muted);
     }
 
     .message {
@@ -332,8 +409,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
       flex-shrink: 0;
       margin-top: 4px;
     }
@@ -341,6 +416,12 @@
     .avatar.ai {
       background-color: #ffffff;
       color: #121316;
+    }
+
+    .avatar.ai svg {
+      width: 16px;
+      height: 16px;
+      fill: #121316;
     }
 
     .input-dock {
@@ -355,10 +436,10 @@
       background-color: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 12px 16px;
+      padding: 14px 16px;
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      align-items: center;
+      gap: 12px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
 
@@ -373,24 +454,13 @@
       color: var(--text-main);
       font-size: 14px;
       resize: none;
-      width: 100%;
-      max-height: 180px;
+      flex: 1;
+      max-height: 160px;
       min-height: 24px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     textarea::placeholder {
-      color: var(--text-muted);
-    }
-
-    .input-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .input-hints {
-      font-size: 11px;
       color: var(--text-muted);
     }
 
@@ -398,15 +468,16 @@
       background-color: #ffffff;
       color: #121316;
       border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       font-size: 14px;
       font-weight: 600;
+      flex-shrink: 0;
       transition: 0.15s;
     }
 
@@ -428,17 +499,18 @@
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
     }
-
-    @media (max-width: 768px) {
-      aside { display: none; }
-    }
   </style>
 </head>
 <body>
 
-  <aside>
+  <!-- Left Sidebar with Collapse & Profile -->
+  <aside id="sidebar">
     <div class="brand">
-      <div class="brand-icon">H</div>
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/>
+        </svg>
+      </div>
       <div class="brand-titles">
         <span class="brand-name">Hanal</span>
         <span class="brand-tagline">Mera Buddy</span>
@@ -449,14 +521,37 @@
       <span>+ New Chat</span>
     </button>
 
-    <div class="chat-history">
+    <div class="chat-history" id="chatHistoryList">
       <div class="history-item active">Current Conversation</div>
+    </div>
+
+    <!-- User Profile & Email Storage -->
+    <div class="profile-section">
+      <div class="profile-info">
+        <div class="profile-avatar" id="avatarInitial">G</div>
+        <div class="profile-details">
+          <span class="profile-email" id="userEmailDisplay">Guest User</span>
+          <span class="profile-status" id="userStatus">Local Mode</span>
+        </div>
+      </div>
+      <button class="login-btn" id="authBtn" onclick="handleAuthAction()">Login</button>
     </div>
   </aside>
 
+  <!-- Main Chat Section -->
   <main>
     <header>
-      <span class="header-title">Hanal — Mera Buddy</span>
+      <div class="header-left">
+        <!-- Sidebar Toggle / Minimize Button -->
+        <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Toggle Sidebar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+          </svg>
+        </button>
+        <span class="header-title">Hanal</span>
+      </div>
+
       <div class="status-badge">
         <span class="status-dot"></span>
         Ready
@@ -466,23 +561,7 @@
     <div class="chat-container" id="chatContainer">
       <div class="chat-wrapper" id="chatWrapper">
         <div class="hero" id="heroSection">
-          <h1>How can Hanal help you today?</h1>
-          <p>Your thoughtful buddy for writing, strategy, ideas, and execution.</p>
-          
-          <div class="starter-cards">
-            <div class="card" onclick="useStarter('Write 5 irresistible video hooks on: ')">
-              <div class="card-title">🎣 Video Hooks</div>
-              <div class="card-desc">High-CTR curiosity-driven openers</div>
-            </div>
-            <div class="card" onclick="useStarter('Help me rewrite this message clearly and concisely: ')">
-              <div class="card-title">✍️ Copy Polish</div>
-              <div class="card-desc">Clear, benefit-driven messaging</div>
-            </div>
-            <div class="card" onclick="useStarter('Brainstorm 3 strategic ideas for: ')">
-              <div class="card-title">💡 Strategic Ideas</div>
-              <div class="card-desc">Find fresh angles & perspectives</div>
-            </div>
-          </div>
+          <h1>Tell me buddy</h1>
         </div>
       </div>
     </div>
@@ -490,23 +569,96 @@
     <div class="input-dock">
       <div class="input-box-wrapper">
         <textarea id="userInput" rows="1" placeholder="Ask your buddy..." onkeydown="handleKey(event)"></textarea>
-        <div class="input-actions">
-          <span class="input-hints">Shift + Enter for new line</span>
-          <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
-        </div>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
       </div>
     </div>
   </main>
 
   <script>
+    const sidebar = document.getElementById('sidebar');
     const chatWrapper = document.getElementById('chatWrapper');
     const heroSection = document.getElementById('heroSection');
     const userInput = document.getElementById('userInput');
     const chatContainer = document.getElementById('chatContainer');
     const sendBtn = document.getElementById('sendBtn');
+    const userEmailDisplay = document.getElementById('userEmailDisplay');
+    const userStatus = document.getElementById('userStatus');
+    const avatarInitial = document.getElementById('avatarInitial');
+    const authBtn = document.getElementById('authBtn');
 
-    // Chat Memory Array (Google Gemini Multiturn format)
     let chatHistory = [];
+    let currentUser = localStorage.getItem('hanal_user_email') || null;
+
+    // Load User Account State on Startup
+    function initUser() {
+      if (currentUser) {
+        userEmailDisplay.innerText = currentUser;
+        userStatus.innerText = 'Synced';
+        avatarInitial.innerText = currentUser.charAt(0).toUpperCase();
+        authBtn.innerText = 'Logout';
+        loadUserSavedHistory();
+      } else {
+        userEmailDisplay.innerText = 'Guest User';
+        userStatus.innerText = 'Local Mode';
+        avatarInitial.innerText = 'G';
+        authBtn.innerText = 'Login';
+      }
+    }
+
+    function handleAuthAction() {
+      if (currentUser) {
+        if (confirm("Logout karna chahte hain?")) {
+          localStorage.removeItem('hanal_user_email');
+          currentUser = null;
+          initUser();
+          startNewChat();
+        }
+      } else {
+        const email = prompt("Apna email enter karein chat history save rakhne ke liye:");
+        if (email && email.includes('@')) {
+          localStorage.setItem('hanal_user_email', email.trim().toLowerCase());
+          currentUser = email.trim().toLowerCase();
+          initUser();
+        } else if (email) {
+          alert("Kripya valid email address enter karein.");
+        }
+      }
+    }
+
+    function saveChatToStorage() {
+      if (currentUser && chatHistory.length > 0) {
+        localStorage.setItem(`hanal_history_${currentUser}`, JSON.stringify(chatHistory));
+      }
+    }
+
+    function loadUserSavedHistory() {
+      if (!currentUser) return;
+      const saved = localStorage.getItem(`hanal_history_${currentUser}`);
+      if (saved) {
+        try {
+          chatHistory = JSON.parse(saved);
+          chatWrapper.innerHTML = '';
+          if (heroSection) heroSection.style.display = 'none';
+
+          chatHistory.forEach(item => {
+            const sender = item.role === 'user' ? 'user' : 'assistant';
+            const text = item.parts[0]?.text || '';
+            const bubble = appendMessage(sender, '');
+            if (sender === 'assistant') {
+              bubble.innerHTML = marked.parse(text);
+            } else {
+              bubble.innerText = text;
+            }
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('collapsed');
+    }
 
     userInput.addEventListener('input', function() {
       this.style.height = 'auto';
@@ -520,19 +672,16 @@
       }
     }
 
-    function useStarter(text) {
-      userInput.value = text;
-      userInput.focus();
-      userInput.style.height = 'auto';
-      userInput.style.height = (userInput.scrollHeight) + 'px';
-    }
-
     function startNewChat() {
-      chatHistory = []; // Reset memory
+      chatHistory = [];
+      if (currentUser) {
+        localStorage.removeItem(`hanal_history_${currentUser}`);
+      }
       chatWrapper.innerHTML = '';
       chatWrapper.appendChild(heroSection);
       heroSection.style.display = 'flex';
       userInput.value = '';
+      userInput.style.height = 'auto';
       userInput.focus();
     }
 
@@ -549,12 +698,14 @@
         parts: [{ text: text }]
       });
 
+      saveChatToStorage();
+
       userInput.value = '';
       userInput.style.height = 'auto';
       userInput.disabled = true;
       sendBtn.disabled = true;
 
-      // 2. Prepare AI Bubble with Cursor
+      // 2. Prepare AI Bubble with Vector Logo & Cursor
       const aiBubble = appendMessage('assistant', '');
       const cursor = document.createElement('span');
       cursor.className = 'cursor-blink';
@@ -598,6 +749,8 @@
           parts: [{ text: fullResponse }]
         });
 
+        saveChatToStorage();
+
       } catch (err) {
         cursor.remove();
         aiBubble.innerText = 'Network error. Please try again.';
@@ -614,7 +767,9 @@
 
       if (sender === 'assistant') {
         msgDiv.innerHTML = `
-          <div class="avatar ai">H</div>
+          <div class="avatar ai">
+            <svg viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg>
+          </div>
           <div class="bubble">${text}</div>
         `;
       } else {
@@ -628,6 +783,9 @@
 
       return msgDiv.querySelector('.bubble');
     }
+
+    // Initialize user session on page load
+    initUser();
   </script>
 </body>
 </html>
