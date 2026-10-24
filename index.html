@@ -10,13 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  
-  <!-- Hamari CSS file ka link -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Sidebar (Default Closed) -->
+  <!-- Floating Sidebar (Default Closed) -->
   <aside id="sidebar" class="collapsed">
     <div class="brand">
       <div class="brand-logo">
@@ -53,12 +51,12 @@
     </div>
   </aside>
 
-  <!-- Main Chat Section -->
+  <!-- Main Container -->
   <main>
     <header>
       <div class="header-left">
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Toggle Sidebar">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -81,15 +79,16 @@
       </div>
     </div>
 
+    <!-- Message Bar with Left (+) and Right (↑) buttons -->
     <div class="input-dock">
       <div class="input-box-wrapper">
+        <button class="action-btn" id="actionBtn" onclick="handleActionClick()" title="Options">+</button>
         <textarea id="userInput" rows="1" placeholder="Ask your buddy..." onkeydown="handleKey(event)"></textarea>
         <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
       </div>
     </div>
   </main>
 
-  <!-- Hamari JavaScript file ka link -->
   <script src="app.js"></script>
 </body>
 </html>
