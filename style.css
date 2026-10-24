@@ -1,27 +1,31 @@
 :root {
   --bg-dark: #0a0b0e;
-  --glass-panel: rgba(22, 24, 30, 0.65);
-  --glass-card: rgba(30, 34, 44, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-focus: rgba(255, 255, 255, 0.22);
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --glass-panel: rgba(22, 24, 30, 0.75);
+  --glass-card: rgba(30, 34, 44, 0.6);
+  /* Lines aur borders ko bold aur clear white banaya */
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-border-focus: rgba(255, 255, 255, 0.55);
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
   --accent: #ffffff;
-  --code-bg: rgba(10, 11, 14, 0.85);
+  --code-bg: rgba(10, 11, 14, 0.95);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  /* Crystal-clear crisp system font (koi blur nahi) */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background-color: var(--bg-dark);
   background-image: 
-    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 40%);
   color: var(--text-main);
   height: 100vh;
   display: flex;
@@ -32,12 +36,13 @@ body {
 
 /* Floating Rounded Sidebar */
 aside {
-  width: 270px;
-  min-width: 270px;
+  width: 280px;
+  min-width: 280px;
   background: var(--glass-panel);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--glass-border);
+  /* Clear solid 1.5px border */
+  border: 1.5px solid var(--glass-border);
   border-radius: 24px;
   display: flex;
   flex-direction: column;
@@ -45,7 +50,7 @@ aside {
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 20;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 aside.collapsed {
@@ -64,27 +69,28 @@ aside.collapsed {
   align-items: center;
   gap: 12px;
   padding-bottom: 18px;
-  border-bottom: 1px solid var(--glass-border);
+  /* Strong dividing line */
+  border-bottom: 1.5px solid var(--glass-border);
 }
 
 .brand-logo {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   background: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  border: 1.5px solid #ffffff;
 }
 
 .brand-logo svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   fill: none;
   stroke: #0a0b0e;
-  stroke-width: 2;
+  stroke-width: 2.2;
 }
 
 .brand-titles {
@@ -93,39 +99,36 @@ aside.collapsed {
 }
 
 .brand-name {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
-  letter-spacing: -0.3px;
   color: #ffffff;
 }
 
 .brand-tagline {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-muted);
-  letter-spacing: 0.2px;
 }
 
+/* Clearer Bold Border Pill Button */
 .new-chat-btn {
   margin-top: 16px;
   background: var(--glass-card);
-  border: 1px solid var(--glass-border);
-  color: var(--text-main);
+  border: 1.5px solid var(--glass-border);
+  color: #ffffff;
   padding: 12px 18px;
   border-radius: 9999px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
   transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
 }
 
 .new-chat-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border-color: var(--glass-border-focus);
-  transform: translateY(-1px);
 }
 
 .chat-history {
@@ -140,11 +143,11 @@ aside.collapsed {
 .history-item {
   padding: 10px 16px;
   border-radius: 9999px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
   cursor: pointer;
   background: transparent;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -153,7 +156,7 @@ aside.collapsed {
 
 .history-item:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--glass-border);
 }
 
 .history-item.active {
@@ -163,7 +166,7 @@ aside.collapsed {
 }
 
 .profile-section {
-  border-top: 1px solid var(--glass-border);
+  border-top: 1.5px solid var(--glass-border);
   padding-top: 16px;
   display: flex;
   align-items: center;
@@ -179,16 +182,16 @@ aside.collapsed {
 }
 
 .profile-avatar {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid var(--glass-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   color: #ffffff;
   flex-shrink: 0;
 }
@@ -200,8 +203,8 @@ aside.collapsed {
 }
 
 .profile-email {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
@@ -210,29 +213,28 @@ aside.collapsed {
 }
 
 .profile-status {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-muted);
 }
 
 .login-btn {
   background: transparent;
-  border: 1px solid var(--glass-border);
-  color: var(--text-muted);
-  padding: 6px 12px;
+  border: 1.5px solid var(--glass-border);
+  color: #ffffff;
+  padding: 6px 14px;
   border-radius: 9999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .login-btn:hover {
-  color: #ffffff;
   border-color: var(--glass-border-focus);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.12);
 }
 
-/* Main Container */
+/* Main Container with Defined Bold Border */
 main {
   flex: 1;
   display: flex;
@@ -240,12 +242,12 @@ main {
   background: var(--glass-panel);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--glass-border);
+  border: 1.5px solid var(--glass-border);
   border-radius: 24px;
   position: relative;
   height: 100%;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 header {
@@ -253,7 +255,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1.5px solid var(--glass-border);
 }
 
 .header-left {
@@ -264,10 +266,10 @@ header {
 
 .sidebar-toggle-btn {
   background: var(--glass-card);
-  border: 1px solid var(--glass-border);
-  color: var(--text-muted);
-  width: 38px;
-  height: 38px;
+  border: 1.5px solid var(--glass-border);
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -277,38 +279,35 @@ header {
 }
 
 .sidebar-toggle-btn:hover {
-  color: #ffffff;
   border-color: var(--glass-border-focus);
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .header-title {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.2px;
+  font-size: 16px;
+  font-weight: 700;
   color: #ffffff;
 }
 
 .status-badge {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   background: var(--glass-card);
   padding: 6px 14px;
   border-radius: 9999px;
-  border: 1px solid var(--glass-border);
-  color: var(--text-muted);
+  border: 1.5px solid var(--glass-border);
+  color: #ffffff;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .status-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background-color: #10b981;
   border-radius: 50%;
-  box-shadow: 0 0 8px #10b981;
+  box-shadow: 0 0 10px #10b981;
 }
 
 .chat-container {
@@ -322,7 +321,7 @@ header {
 
 .chat-wrapper {
   width: 100%;
-  max-width: 760px;
+  max-width: 780px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -330,25 +329,26 @@ header {
 
 .hero {
   text-align: center;
-  margin-top: 150px;
+  margin-top: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .hero h1 {
-  font-size: 34px;
+  font-size: 38px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: -0.8px;
+  letter-spacing: -0.5px;
 }
 
+/* Chat Messages - Font Size Bada & Crisp */
 .message {
   display: flex;
   gap: 14px;
   width: 100%;
-  line-height: 1.6;
-  font-size: 14px;
+  line-height: 1.7;
+  font-size: 16px;
 }
 
 .message.user {
@@ -356,15 +356,15 @@ header {
 }
 
 .bubble {
-  padding: 14px 20px;
+  padding: 16px 22px;
   border-radius: 20px;
   max-width: 82%;
   word-break: break-word;
 }
 
 .message.user .bubble {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid var(--glass-border);
   color: #ffffff;
   border-bottom-right-radius: 6px;
   white-space: pre-wrap;
@@ -373,7 +373,7 @@ header {
 .message.assistant .bubble {
   background: transparent;
   padding-left: 0;
-  color: var(--text-main);
+  color: #ffffff;
 }
 
 .bubble p {
@@ -384,10 +384,10 @@ header {
 }
 .bubble strong {
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
 }
 .bubble ul, .bubble ol {
-  margin-left: 20px;
+  margin-left: 24px;
   margin-bottom: 12px;
 }
 .bubble li {
@@ -395,25 +395,25 @@ header {
 }
 .bubble h1, .bubble h2, .bubble h3 {
   color: #ffffff;
-  margin: 16px 0 8px;
+  margin: 18px 0 10px;
   font-weight: 700;
 }
 .bubble code {
   font-family: 'JetBrains Mono', monospace;
   background: var(--code-bg);
-  border: 1px solid var(--glass-border);
-  padding: 3px 7px;
+  border: 1.5px solid var(--glass-border);
+  padding: 3px 8px;
   border-radius: 6px;
-  font-size: 13px;
-  color: #f1f5f9;
+  font-size: 14px;
+  color: #ffffff;
 }
 .bubble pre {
   background: var(--code-bg);
-  border: 1px solid var(--glass-border);
+  border: 1.5px solid var(--glass-border);
   border-radius: 14px;
-  padding: 14px 18px;
+  padding: 16px 20px;
   overflow-x: auto;
-  margin: 12px 0;
+  margin: 14px 0;
 }
 .bubble pre code {
   background: none;
@@ -422,65 +422,66 @@ header {
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   margin-top: 4px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
 }
 
 .avatar.ai {
   background: #ffffff;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
 
 .avatar.ai svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: #0a0b0e;
-  stroke-width: 2;
+  stroke-width: 2.2;
 }
 
+/* Input Dock & Defined Bold Borders */
 .input-dock {
-  padding: 16px 24px 24px;
+  padding: 18px 24px 26px;
   display: flex;
   justify-content: center;
 }
 
 .input-box-wrapper {
   width: 100%;
-  max-width: 760px;
+  max-width: 780px;
   background: var(--glass-card);
-  border: 1px solid var(--glass-border);
+  border: 1.5px solid var(--glass-border);
   backdrop-filter: blur(20px);
   border-radius: 9999px;
-  padding: 8px 10px 8px 22px;
+  padding: 10px 12px 10px 24px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  gap: 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease;
 }
 
 .input-box-wrapper:focus-within {
   border-color: var(--glass-border-focus);
-  background: rgba(36, 40, 52, 0.55);
+  background: rgba(36, 40, 52, 0.7);
 }
 
 textarea {
   background: transparent;
   border: none;
   outline: none;
-  color: var(--text-main);
-  font-size: 14px;
+  color: #ffffff;
+  font-size: 16px;
   resize: none;
   flex: 1;
   max-height: 140px;
-  min-height: 22px;
+  min-height: 24px;
   line-height: 1.5;
 }
 
@@ -491,19 +492,18 @@ textarea::placeholder {
 .send-btn {
   background: #ffffff;
   color: #0a0b0e;
-  border: none;
-  width: 36px;
-  height: 36px;
+  border: 1.5px solid #ffffff;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   flex-shrink: 0;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 .send-btn:hover {
@@ -514,7 +514,7 @@ textarea::placeholder {
 .cursor-blink {
   display: inline-block;
   width: 6px;
-  height: 15px;
+  height: 16px;
   background-color: #ffffff;
   margin-left: 4px;
   vertical-align: middle;
