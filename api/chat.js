@@ -9,7 +9,7 @@ export default async function handler(req) {
   }
 
   try {
-    const { message } = await req.json();
+    const { history } = await req.json();
     const apiKey = (process.env.GEMINI_API_KEY || '').trim();
 
     if (!apiKey) {
@@ -24,10 +24,10 @@ export default async function handler(req) {
       body: JSON.stringify({
         system_instruction: {
           parts: [{
-            text: "You are Hanal, a thoughtful, ultra-clear, and sharp AI assistant. Follow these principles strictly: 1. Be direct, concise, and high-value. Avoid filler phrases, robotic pleasantries, and unnecessary conversational fluff. 2. Jump straight into the solution or answer. 3. Structure complex information with clear markdown bullet points, bold key insights, and compact formatting. 4. Match the user's language naturally (if Hinglish, reply in Hinglish; if English, reply in English)."
+            text: "You are Hanal, 'Mera Buddy' — a thoughtful, sharp, and helpful AI buddy. Strictly follow: 1. Be direct, clear, and high-value without fluff. 2. Remember previous conversation context accurately. 3. Use clean markdown formatting. 4. Match the user's language naturally (Hinglish for Hinglish, English for English)."
           }]
         },
-        contents: [{ parts: [{ text: message }] }]
+        contents: history || []
       })
     });
 
@@ -64,9 +64,7 @@ export default async function handler(req) {
                     if (chunk) {
                       controller.enqueue(encoder.encode(chunk));
                     }
-                  } catch (e) {
-                    // Ignore partial chunks
-                  }
+                  } catch (e) {}
                 }
               }
             }
