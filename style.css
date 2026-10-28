@@ -663,3 +663,40 @@ textarea::placeholder {
   }
   main { border-radius: 0; border: none; }
 }
+/* File Preview Badge */
+.input-dock-inner {
+  width: 100%;
+  max-width: 780px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.file-preview-badge {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border: var(--border-clean);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 13px;
+  color: #ffffff;
+  backdrop-filter: blur(12px);
+}
+
+.file-preview-badge button {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-preview-badge button:hover {
+  color: #ffffff;
+}
